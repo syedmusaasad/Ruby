@@ -8,6 +8,22 @@ from Vevent.models import element
 def login():
     return render_template('login.html')
 
+@app.route("/events")
+def events():
+    return render_template('events.html')
+
+@app.route("/events/<id>")
+def event(id):
+    return render_template('event.html')
+
+@app.route("/create")
+def create():
+    return render_template('create.html')
+
+@app.route("/faq")
+def faq():
+    return render_template('faq.html')
+
 @app.route("/", methods=["GET", "POST"])
 def main():
     if request.method == "GET":
