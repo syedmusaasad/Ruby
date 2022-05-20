@@ -5,8 +5,8 @@ from Vevent import app, db
 from Vevent.models import element
 
 @app.route("/")
-def index():
-    return render_template('index.html')
+def login():
+    return render_template('login.html')
 
 @app.route("/", methods=["GET", "POST"])
 def main():

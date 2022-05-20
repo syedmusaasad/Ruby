@@ -11,5 +11,11 @@
       href="{{ url_for('static',filename='login.css') }}"
     />
   </head>
-  <body></body>
+  <body>
+    <form method="post" action="/">
+      <input type="email" name="email" />
+      <input type="password" name="password" />
+      <input type="submit" value="LOGIN" />
+    </form>
+  </body>
 </html>
