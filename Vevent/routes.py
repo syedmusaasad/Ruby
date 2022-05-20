@@ -1,20 +1,29 @@
-from flask import render_template, request, jsonify, make_response
-import json
+from flask import redirect, render_template, request, session, url_for
 
-from Vevent import app, db, login_manager
+from Vevent import app, db
 from Vevent.models import User
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.get(user_id)
+from Vevent.utils import load_user
 
 @app.route("/")
 def login():
     return render_template('login.html')
 
-@app.route("/events") # check if authenticated
+@app.route("/events", methods=["POST"]) # check if authenticated
 def events():
-    return render_template('events.html')
+    email = request.form['email']
+    password = request.form['password']
+    user = load_user({"email": email, "password": password})
+    if user:
+        print(session)
+        return render_template('events.html')
+    elif not User.query.filter_by(email=email).first():
+        new_user = User(
+            email = email,
+            password = password
+        )
+        db.session.add(new_user)
+        print(new_user.email, new_user.password)
+    return redirect(url_for('login'))
 
 @app.route("/events/<id>") # check if authenticated
 def event(id):
@@ -27,29 +36,3 @@ def create():
 @app.route("/faq") # check if authenticated
 def faq():
     return render_template('faq.html')
-
-# example code, remove later
-@app.route("/", methods=["GET", "POST"])
-def main():
-    if request.method == "GET":
-        return make_response(jsonify([elmnt.value for elmnt in element.query.all()]), 200)
-    else:
-        db.session.add(element(json.loads(request.data)["task"]))
-        db.session.commit()
-        print([elmnt.value for elmnt in element.query.all()])
-        return make_response(jsonify([elmnt.value for elmnt in element.query.all()]), 200)
-
-
-@app.route("/<id>", methods=["DELETE", "PUT"])
-def task(id):
-    if request.method == "DELETE":
-        element.query.filter_by(_id=id).delete()
-        db.session.query(element).filter(element._id > id).update(
-            {element._id: element._id - 1})
-        db.session.commit()
-        return make_response(jsonify([elmnt.value for elmnt in element.query.all()]), 200)
-    else:
-        db.session.query(element).filter(element._id == id).update(
-            {element.value: json.loads(request.data)["value"]})
-        db.session.commit()
-        return make_response(jsonify([elmnt.value for elmnt in element.query.all()]), 200)
