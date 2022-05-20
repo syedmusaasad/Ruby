@@ -2,4 +2,3 @@
 *.pyc
 
 /Vevent/__pycache__
-/Vevent/db.sqlite
