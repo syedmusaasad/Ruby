@@ -1,29 +1,34 @@
 from flask import render_template, request, jsonify, make_response
 import json
 
-from Vevent import app, db
-from Vevent.models import element
+from Vevent import app, db, login_manager
+from Vevent.models import User
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
 
 @app.route("/")
 def login():
     return render_template('login.html')
 
-@app.route("/events")
+@app.route("/events") # check if authenticated
 def events():
     return render_template('events.html')
 
-@app.route("/events/<id>")
+@app.route("/events/<id>") # check if authenticated
 def event(id):
     return render_template('event.html')
 
-@app.route("/create")
+@app.route("/create") # check if authenticated
 def create():
     return render_template('create.html')
 
-@app.route("/faq")
+@app.route("/faq") # check if authenticated
 def faq():
     return render_template('faq.html')
 
+# example code, remove later
 @app.route("/", methods=["GET", "POST"])
 def main():
     if request.method == "GET":
