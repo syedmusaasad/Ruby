@@ -6,7 +6,6 @@ from datetime import datetime as dt
 from Vevent import app, db, client
 from Vevent.models import User, Event
 from Vevent.utils import get_coordinates, load_user, average_lat_lng
-from Vevent.styles import style
 
 @app.route("/")
 def login():
@@ -31,7 +30,7 @@ def events():
             })
         return render_template('events.html',
             events=[{"name": event.name, "id": event._id} for event in events_query_all],
-            map=Map(identifier="Event_Map", lat=avg['lat'], lng=avg['lng'], markers=markers, style=style)
+            map=Map(identifier="Event_Map", lat=avg['lat'], lng=avg['lng'], markers=markers, cls="map")
                               )
     email = request.form['email']
     password = request.form['password']
