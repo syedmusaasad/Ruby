@@ -4,3 +4,4 @@ flask-login
 flask-googlemaps==0.4.0
 requests
 twilio
+geocoder

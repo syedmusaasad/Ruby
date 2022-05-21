@@ -1,11 +1,11 @@
-import json
+import json, geocoder
 from flask import redirect, render_template, request, session, url_for, flash
 from flask_googlemaps import Map
 from datetime import datetime as dt
 
 from Vevent import app, db, client
 from Vevent.models import User, Event
-from Vevent.utils import get_coordinates, load_user, average_lat_lng
+from Vevent.utils import get_coordinates, load_user
 
 @app.route("/")
 def login():
@@ -19,18 +19,27 @@ def events():
             flash("Not authenticated.")
             return redirect(url_for('login'))
         events_query_all = Event.query.all()
-        avg = average_lat_lng(events_query_all)
         markers=[]
-        for index in range(len(events_query_all)):
+        for event in events_query_all:
+            coords = get_coordinates(event.location)
             markers.append({
                 'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                'lat': avg['all'][index]['lat'],
-                'lng': avg['all'][index]['lng'],
-                'infobox': events_query_all[index].name
+                'lat': coords['lat'],
+                'lng': coords['lng'],
+                'infobox': event.name
             })
+        current_location = geocoder.ip('me').latlng
+        markers.append(
+            {
+                'icon': 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                'lat': current_location[0],
+                'lng': current_location[1],
+                'infobox': "Current Location"
+            }
+        )
         return render_template('events.html',
             events=[{"name": event.name, "id": event._id} for event in events_query_all],
-            map=Map(identifier="Event_Map", lat=avg['lat'], lng=avg['lng'], markers=markers, zoom=0)
+            map=Map(identifier="Event_Map", lat=current_location[0], lng=current_location[1], markers=markers)
                               )
     email = request.form['email']
     password = request.form['password']
@@ -74,7 +83,7 @@ def event(id):
     conversation = client.conversations.conversations(event.conversation_id).fetch()
     return render_template('event.html', data=event, conversation=conversation, participant=participant)
 
-@app.route("/create", methods=["GET", "POST"]) # make sure all fields are valid before committing to db
+@app.route("/create", methods=["GET", "POST"])
 def create():
     if request.method == "GET":
         if not session['user']:
@@ -108,7 +117,7 @@ def create():
     )
     db.session.add(new_event)
     db.session.commit()
-    return redirect(url_for('events')) # do not pass data, it's already handled
+    return redirect(url_for('events'))
 
 @app.route("/faq")
 def faq():

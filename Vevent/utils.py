@@ -18,19 +18,3 @@ def get_coordinates(address_text):
     if len(response['results']) > 0:
         return response["results"][0]["geometry"]["location"]
     return None
-
-def average_lat_lng(events):
-    lat=0
-    lng=0
-    cnt=len(events)
-    all=[]
-    if cnt<1:
-        return {"lat": lat, "lng": lng, "all": all}
-    for event in events:
-        coords=get_coordinates(event.location)
-        lat+=coords['lat']
-        lng+=coords['lng']
-        all.append(coords)
-    lat/=cnt
-    lng/=cnt
-    return {"lat": lat, "lng": lng, "all": all}
