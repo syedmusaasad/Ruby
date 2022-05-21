@@ -2,3 +2,5 @@ flask
 flask-sqlalchemy
 flask-login
 flask-googlemaps==0.4.0
+requests
+twilio

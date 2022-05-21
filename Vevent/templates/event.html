@@ -13,6 +13,9 @@
   </head>
   <body>
     <p class="pagename"><a href="/events">VEVENT</a></p>
-    {{data}}
+    {{data.name}} {{data.objective}} {{data.email}} {{data.datetime}}
+    {{data.description}} {{data.cost}} {{data.organization}} {{data.location}}
+    {{conversation.sid}} {{participant.sid}} {{conversation.chat_service_sid}}
+    <iframe src="{{participant.url}}"></iframe>
   </body>
 </html>

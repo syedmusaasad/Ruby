@@ -1,10 +1,11 @@
+import json
 from flask import redirect, render_template, request, session, url_for, flash
 from flask_googlemaps import Map
 from datetime import datetime as dt
 
-from Vevent import app, db
+from Vevent import app, db, client
 from Vevent.models import User, Event
-from Vevent.utils import load_user
+from Vevent.utils import get_coordinates, load_user, average_lat_lng
 
 @app.route("/")
 def login():
@@ -17,10 +18,20 @@ def events():
         if not session['user']:
             flash("Not authenticated.")
             return redirect(url_for('login'))
+        events_query_all = Event.query.all()
+        avg = average_lat_lng(events_query_all)
+        markers=[]
+        for index in range(len(events_query_all)):
+            markers.append({
+                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                'lat': avg['all'][index]['lat'],
+                'lng': avg['all'][index]['lng'],
+                'infobox': events_query_all[index].name
+            })
         return render_template('events.html',
-            events=[{"name": event.name, "id": event._id} for event in Event.query.all()],
-            map=Map(identifier="Event_Map", lat=40, lng=-75)
-            )
+            events=[{"name": event.name, "id": event._id} for event in events_query_all],
+            map=Map(identifier="Event_Map", lat=avg['lat'], lng=avg['lng'], markers=markers)
+                              )
     email = request.form['email']
     password = request.form['password']
     if not email or not password:
@@ -33,7 +44,8 @@ def events():
     elif not User.query.filter_by(email=email).first():
         new_user = User(
             email = email,
-            password = password
+            password = password,
+            accounts=json.dumps({})
         )
         db.session.add(new_user)
         db.session.commit()
@@ -47,7 +59,20 @@ def event(id):
     if not session['user']:
         flash("Not authenticated.")
         return redirect(url_for('login'))
-    return render_template('event.html', data=Event.query.filter_by(_id=id).first())
+    event = Event.query.filter_by(_id=id).first()
+    user_accounts = json.loads(User.query.filter_by(email=session['user']).first().accounts)
+    participant=""
+    if event.conversation_id in user_accounts:
+        participant=client.conversations.conversations(event.conversation_id).participants.get(user_accounts[event.conversation_id]).fetch()
+    else:
+        participant=client.conversations.conversations(event.conversation_id).participants.create(identity=session['user'])
+        user_accounts[event.conversation_id]=participant.sid
+        db.session.query(User).filter(User.email==session['user']).update(
+            {User.accounts: json.dumps(user_accounts)}
+        )
+        db.session.commit()
+    conversation = client.conversations.conversations(event.conversation_id).fetch()
+    return render_template('event.html', data=event, conversation=conversation, participant=participant)
 
 @app.route("/create", methods=["GET", "POST"]) # make sure all fields are valid before committing to db
 def create():
@@ -58,6 +83,9 @@ def create():
         return render_template('create.html')
     name = request.form['name']
     location = request.form['location']
+    if not get_coordinates(location):
+        flash("Please re-enter address.")
+        return redirect(url_for('create'))
     datetime = request.form['datetime']
     organization = request.form['organization']
     cost = request.form['cost']
@@ -66,7 +94,9 @@ def create():
     if not name or not location or not datetime or not organization or not cost or not description or not objective:
         flash("Please provide data.")
         return redirect(url_for('create'))
+    conversation = client.conversations.conversations.create(friendly_name=name)
     new_event = Event(
+        conversation_id=conversation.sid,
         name=name,
         email=session['user'],
         location=location,

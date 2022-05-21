@@ -1,7 +1,36 @@
+import os, requests
 from Vevent import login_manager
 from Vevent.models import User
 
 @login_manager.user_loader
 def load_user(user):
-    if User.query.filter_by(email=user['email']).first() and User.query.filter_by(password=user['password']).first():
-        return User.query.filter_by(email=user['email']).first()
+    email=User.query.filter_by(email=user['email']).first()
+    if email and User.query.filter_by(password=user['password']).first():
+        return email
+
+def get_coordinates(address_text):
+    response = requests.get(
+        "https://maps.googleapis.com/maps/api/geocode/json?address="
+        + address_text
+        + "&key="
+        + os.environ['GOOGLEMAPS_KEY']
+    ).json()
+    if len(response['results']) > 0:
+        return response["results"][0]["geometry"]["location"]
+    return None
+
+def average_lat_lng(events):
+    lat=0
+    lng=0
+    cnt=len(events)
+    all=[]
+    if cnt<1:
+        return {"lat": lat, "lng": lng, "all": all}
+    for event in events:
+        coords=get_coordinates(event.location)
+        lat+=coords['lat']
+        lng+=coords['lng']
+        all.append(coords)
+    lat/=cnt
+    lng/=cnt
+    return {"lat": lat, "lng": lng, "all": all}
