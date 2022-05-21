@@ -5,13 +5,16 @@ from Vevent import db
 class User(UserMixin, db.Model):
     email = db.Column(db.String, primary_key=True)
     password = db.Column(db.String)
+    accounts = db.Column(db.String)
 
-    def __init__(self, email, password):
+    def __init__(self, email, password, accounts):
         self.email = email
         self.password = password
+        self.accounts = accounts
 
 class Event(db.Model):
     _id = db.Column(db.Integer, primary_key=True)
+    conversation_id = db.Column(db.String)
     name = db.Column(db.String)
     email = db.Column(db.String)
     location = db.Column(db.String)
@@ -21,7 +24,8 @@ class Event(db.Model):
     description = db.Column(db.String)
     objective = db.Column(db.String)
 
-    def __init__(self, name, email, location, datetime, organization, cost, description, objective):
+    def __init__(self, conversation_id, name, email, location, datetime, organization, cost, description, objective):
+        self.conversation_id = conversation_id
         self.name = name
         self.email = email
         self.location = location
