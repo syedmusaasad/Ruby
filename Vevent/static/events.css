@@ -50,9 +50,7 @@ body {
     cursor: pointer;
 }
 .map{
-height: 600px;
-margin: 10px;
-width: 50%;
+    height: 500px !important;
 
 }
 
