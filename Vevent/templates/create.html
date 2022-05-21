@@ -12,13 +12,16 @@
     />
   </head>
   <body>
-    <header class="header">
-      <p></p>
-
-      <nav class="menu">
-        <li>Home</li>
-      </nav>
-
-    </header>
+    <form method="post" action="/create">
+      <input type="text" name="name" placeholder="Name" />
+      <input type="text" name="location" placeholder="Location" />
+      <input type="datetime-local" name="datetime" placeholder="DateTime" />
+      <input type="text" name="organization" placeholder="Organization" />
+      <input type="text" name="cost" placeholder="Cost" />
+      <input type="text" name="description" placeholder="Description" />
+      <input type="text" name="objective" placeholder="Objective" />
+      <input type="submit" value="submit" />
+    </form>
+    {{ get_flashed_messages()[0] }}
   </body>
 </html>
