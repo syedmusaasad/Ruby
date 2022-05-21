@@ -30,7 +30,7 @@ def events():
             })
         return render_template('events.html',
             events=[{"name": event.name, "id": event._id} for event in events_query_all],
-            map=Map(identifier="Event_Map", lat=avg['lat'], lng=avg['lng'], markers=markers)
+            map=Map(identifier="Event_Map", lat=avg['lat'], lng=avg['lng'], markers=markers, zoom=1)
                               )
     email = request.form['email']
     password = request.form['password']
