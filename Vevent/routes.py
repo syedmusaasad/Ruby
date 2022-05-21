@@ -1,4 +1,5 @@
 import json, geocoder
+import math
 from flask import redirect, render_template, request, session, url_for, flash
 from flask_googlemaps import Map
 from datetime import datetime as dt
@@ -19,7 +20,9 @@ def events():
             flash("Not authenticated.")
             return redirect(url_for('login'))
         events_query_all = Event.query.all()
+        current_location = geocoder.ip('me').latlng
         markers=[]
+        events=[]
         for event in events_query_all:
             coords = get_coordinates(event.location)
             markers.append({
@@ -28,7 +31,13 @@ def events():
                 'lng': coords['lng'],
                 'infobox': event.name
             })
-        current_location = geocoder.ip('me').latlng
+            events.append(
+                {
+                    'name': event.name,
+                    'id': event._id,
+                    'dist': math.sqrt( ((current_location[0]-coords['lat'])**2)+((current_location[1]-coords['lng'])**2) )
+                }
+            )
         markers.append(
             {
                 'icon': 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
@@ -37,8 +46,9 @@ def events():
                 'infobox': "Current Location"
             }
         )
+        events.sort(key=lambda event: event['dist'])
         return render_template('events.html',
-            events=[{"name": event.name, "id": event._id} for event in events_query_all],
+            events=events,
             map=Map(identifier="Event_Map", lat=current_location[0], lng=current_location[1], markers=markers)
                               )
     email = request.form['email']
