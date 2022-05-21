@@ -13,7 +13,7 @@
     {{ map.js }}
   </head>
   <body>
-    {{session['user']}} {% for event in events %}
+    {{session['user'].split("@")[0]}} {% for event in events %}
     <a href="events/{{ event.id }}">{{ event.value }}</a>
     {% endfor %} {{ map.html }}
   </body>
