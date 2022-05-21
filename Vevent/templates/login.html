@@ -15,27 +15,40 @@
     <header class="pagename">
       <p>VEVENT</p>
     </header>
-      <div class="info">
-        <div class="left">
-          <p class="left_info_smaller">Let's volunteer.</p>
-          <p class= "left_info">Let's work together to better our community.</p>
-          <img class="left_image" src="{{ url_for('static',filename='upload.png') }}" alt=""/>
-        </div>
-
-        <div class="login">
-          <form class = "inside_login"method="post" action="/events">
-            <p class="login_text">Welcome!</p>
-            <p >Let's make a difference.</p>
-            
-            <form class="inside_login" method="post" action="/events"></form>
-              <input class="items_inside" type="email" name="email" placeholder="Email Address"/>
-              <input class="items_inside" type="password" name="password" placeholder="Password"/>
-              <input class="last_item" type="submit" value="Sign In" />
-            </form>
-            {{ get_flashed_messages()[0] }}
- 
-          </form>
-        </div>
+    <div class="info">
+      <div class="left">
+        <p class="left_info_smaller">Let's volunteer.</p>
+        <p class="left_info">Let's work together to better our community.</p>
+        <img
+          class="left_image"
+          src="{{ url_for('static',filename='upload.png') }}"
+          alt=""
+        />
       </div>
+
+      <div class="login">
+        <form class="inside_login" method="post" action="/events">
+          <p class="login_text">Welcome!</p>
+          <p>Let's make a difference.</p>
+
+          {{ get_flashed_messages()[0] }}
+          <form class="inside_login" method="post" action="/events">
+            <input
+              class="items_inside"
+              type="email"
+              name="email"
+              placeholder="Email Address"
+            />
+            <input
+              class="items_inside"
+              type="password"
+              name="password"
+              placeholder="Password"
+            />
+            <input class="last_item" type="submit" value="Login" />
+          </form>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
