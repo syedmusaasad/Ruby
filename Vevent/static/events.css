@@ -49,6 +49,12 @@ body {
     color: #1a192e;
     cursor: pointer;
 }
+.map{
+height: 600px;
+margin: 10px;
+width: 50%;
+
+}
 
 .event_name{
     display: inline-block;
