@@ -10,10 +10,11 @@
       type="text/css"
       href="{{ url_for('static',filename='events.css') }}"
     />
+    {{ map.js }}
   </head>
   <body>
     {{session['user']}} {% for event in events %}
     <a href="events/{{ event.id }}">{{ event.value }}</a>
-    {% endfor %}
+    {% endfor %} {{ map.html }}
   </body>
 </html>
