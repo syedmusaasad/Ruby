@@ -20,7 +20,6 @@ body {
     justify-content: space-between;
     height: 100px;
     padding-right: 5%;
-    margin-bottom: 4%;
 }
 
 .pagename {
@@ -32,26 +31,13 @@ body {
     text-decoration: none;
     color: currentColor;
 }
-.map {
-    height: 800px;
-    width: 800px;
-}
-.event_name{
-    background-color: #1a192e;
-}
-.gm-style{
-    height: 500px;
-}
-.Event_Map{
-    height: 700px;
-}
 .host{
     background-color: #1a192e;
     padding: 14px;
     border-radius: 50px;
     width: 40%;
     min-width: 300px;
-    margin-left: 40px;
+    margin-left: 45px;
     margin-top: 15px;
     color: #ffffff;
     font-size: 20px;
@@ -62,4 +48,11 @@ body {
     border: 0.5;
     color: #1a192e;
     cursor: pointer;
+}
+
+.event_name{
+    display: inline-block;
+    align-items: right;
+    background-color: #1a192e;
+    justify-content: right;
 }
