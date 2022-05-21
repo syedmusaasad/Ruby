@@ -29,10 +29,7 @@ def events():
     user = load_user({"email": email, "password": password})
     if user:
         session['user'] = email
-        return render_template('events.html',
-            events=[{"name": event.name, "id": event._id} for event in Event.query.all()],
-            map=Map(identifier="Event_Map", lat=40, lng=-75)
-            )
+        return redirect(url_for('events'))
     elif not User.query.filter_by(email=email).first():
         new_user = User(
             email = email,
