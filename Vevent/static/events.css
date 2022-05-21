@@ -26,9 +26,12 @@ body {
 .pagename {
     display: flex;
     padding: 2%;
-    font-size: 30px;
+    font-size: 30px;  
 }
-
+.pagename > a{
+    text-decoration: none;
+    color: currentColor;
+}
 .map {
     height: 800px;
     width: 800px;
