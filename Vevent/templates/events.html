@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static',filename='events.css') }}"
-    />
-    {{ map.js }}
-  </head>
-  <body>
-    {{session['user'].split("@")[0]}} {% for event in events %}
-    <a href="events/{{ event.id }}">{{ event.name }}</a>
 
-    {% endfor %} {{ map.html }}
-    <a href="/create">CREATE</a>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VEVENT</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='events.css') }}" />
+  {{ map.js }}
+
+</head>
+
+<body>
+  <div class="header">
+    <p class="pagename">VEVENT</p>
+    <div class="username">
+       {{session['user'].split("@")[0]}}
+    </div>
+  </div>
+
+  {% for event in events %}
+  <a class="event_name" href="events/{{ event.id }}">{{ event.name }}</a>
+  {% endfor %}
+ 
+    {{ map.html }}
+  <button class="host">Host an event!</button>
+  <div class="map" id = "Evemt_Map"style="width: 100vw; height: 100vh" >
   </body>
+
 </html>

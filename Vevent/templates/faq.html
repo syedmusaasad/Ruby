@@ -11,5 +11,12 @@
       href="{{ url_for('static',filename='faq.css') }}"
     />
   </head>
-  <body></body>
+  <body>
+    <div class="header">
+      <p class="pagename">VEVENT</p>
+      <div class="username">
+         {{session['user'].split("@")[0]}}
+      </div>
+    </div>
+  </body>
 </html>
