@@ -114,6 +114,7 @@ def create():
         flash("Please provide data.")
         return redirect(url_for('create'))
     conversation = client.conversations.conversations.create(friendly_name=name)
+    client.conversations.conversations(conversation.sid).participants.create(messaging_binding_address='+17036772243', messaging_binding_proxy_address='+19794325289')
     new_event = Event(
         conversation_id=conversation.sid,
         name=name,
