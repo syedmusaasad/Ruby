@@ -6,6 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VEVENT</title>
+  <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static',filename='volunteer.png') }}"
+/>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='events.css') }}" />
   {{ map.js }}
 
@@ -25,7 +27,8 @@
  
     {{ map.html }}
   <a href="/create"><button class="host">Host an event!</button></a>
-  <div class="map" id = "Evemt_Map"style="width: 100vw; height: 100vh" >
+  <div class="map" id = "Evemt_Map"style="width: 800px; height: 100vh" >
   </body>
+  <a href="https://www.flaticon.com/free-icons/volunteer" title="volunteer icons">Volunteer icons created by Freepik - Flaticon</a>
 
 </html>
