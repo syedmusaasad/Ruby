@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>VEVENT</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -12,10 +12,23 @@
     />
   </head>
   <body>
-    <form method="post" action="/">
-      <input type="email" name="email" />
-      <input type="password" name="password" />
-      <input type="submit" value="LOGIN" />
-    </form>
+    <header class="pagename">
+      <p>VEVENT</p>
+    </header>
+      <div class="info">
+        <div class="left">
+          <p class="left_info_smaller">Let's volunteer.</p>
+          <p class= "left_info">Let's work together to better our community.</p>
+          <img class="left_image" src="{{ url_for('static',filename='upload.png') }}" alt=""/>
+        </div>
+
+        <div class="login">
+          <form class = "inside_login"method="post" action="/events">
+            <input type="email" name="email" placeholder="Email Address"/>
+            <input type="password" name="password" placeholder="Password"/>
+            <input type="submit" value="Login" />
+          </form>
+        </div>
+      </div>
   </body>
 </html>
