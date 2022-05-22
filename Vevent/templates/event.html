@@ -15,6 +15,11 @@
     <p class="pagename"><a href="/events">VEVENT</a></p>
     {{data.name}} {{data.objective}} {{data.email}} {{data.datetime}}
     {{data.description}} {{data.cost}} {{data.organization}} {{data.location}}
-    {% for message in messages %} {{message.body}} {% endfor %}
+    {% for message in messages %} {{message.author}}: {{message.body}} {% endfor
+    %}
+    <form method="post" action="/events/{{data._id}}">
+      <input type="text" name="text" placeholder="Text" />
+      <input type="submit" value="submit" />
+    </form>
   </body>
 </html>

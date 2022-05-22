@@ -77,10 +77,14 @@ def events():
 
 @app.route("/events/<id>", methods=['GET', 'POST'])
 def event(id):
+    event = Event.query.filter_by(_id=id).first()
+    if request.method == 'POST':
+        text = request.form['text']
+        client.conversations.conversations(event.conversation_id).messages.create(author=session['user'], body=text)
+        return redirect('/events/'+id)
     if not session['user']:
         flash("Not authenticated.")
         return redirect(url_for('login'))
-    event = Event.query.filter_by(_id=id).first()
     user_accounts = json.loads(User.query.filter_by(email=session['user']).first().accounts)
     participant=""
     if event.conversation_id in user_accounts:
@@ -116,7 +120,6 @@ def create():
         flash("Please provide data.")
         return redirect(url_for('create'))
     conversation = client.conversations.conversations.create(friendly_name=name)
-    client.conversations.conversations(conversation.sid).participants.create(messaging_binding_address='+17036772243', messaging_binding_proxy_address='+19794325289')
     new_event = Event(
         conversation_id=conversation.sid,
         name=name,
