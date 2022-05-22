@@ -1,4 +1,4 @@
-import json, geocoder
+import geocoder
 import math
 from flask import redirect, render_template, request, session, url_for, flash
 from flask_googlemaps import Map
