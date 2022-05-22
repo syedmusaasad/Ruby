@@ -6,7 +6,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String, primary_key=True)
     password = db.Column(db.String)
 
-    def __init__(self, email, password, accounts):
+    def __init__(self, email, password):
         self.email = email
         self.password = password
 
