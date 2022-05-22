@@ -102,7 +102,7 @@ def create():
     name = request.form['name']
     location = request.form['location']
     if not get_coordinates(location):
-        flash("Please re-enter address.")
+        flash("Please re-enter location.")
         return redirect(url_for('create'))
     datetime = request.form['datetime']
     organization = request.form['organization']
