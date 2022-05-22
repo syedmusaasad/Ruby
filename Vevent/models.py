@@ -5,12 +5,10 @@ from Vevent import db
 class User(UserMixin, db.Model):
     email = db.Column(db.String, primary_key=True)
     password = db.Column(db.String)
-    accounts = db.Column(db.String)
 
     def __init__(self, email, password, accounts):
         self.email = email
         self.password = password
-        self.accounts = accounts
 
 class Event(db.Model):
     _id = db.Column(db.Integer, primary_key=True)

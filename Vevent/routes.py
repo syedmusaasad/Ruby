@@ -88,19 +88,8 @@ def event(id):
     if not session['user']:
         flash("Not authenticated.")
         return redirect(url_for('login'))
-    user_accounts = json.loads(User.query.filter_by(email=session['user']).first().accounts)
-    participant=""
-    if event.conversation_id in user_accounts:
-        participant=client.conversations.conversations(event.conversation_id).participants.get(user_accounts[event.conversation_id]).fetch()
-    else:
-        participant=client.conversations.conversations(event.conversation_id).participants.create(identity=session['user'])
-        user_accounts[event.conversation_id]=participant.sid
-        db.session.query(User).filter(User.email==session['user']).update(
-            {User.accounts: json.dumps(user_accounts)}
-        )
-        db.session.commit()
     messages = client.conversations.conversations(event.conversation_id).messages.list(limit=20)
-    return render_template('event.html', data=event, messages=messages, participant=participant)
+    return render_template('event.html', data=event, messages=messages)
 
 @app.route("/create", methods=["GET", "POST"])
 def create():
