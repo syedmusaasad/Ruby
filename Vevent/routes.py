@@ -37,6 +37,7 @@ def events():
                     'id': event._id,
                     'description': event.description,
                     'cost': event.cost,
+                    'objective': event.objective,
                     'dist': math.sqrt( ((current_location[0]-coords['lat'])**2)+((current_location[1]-coords['lng'])**2) )
                 }
             )
@@ -65,8 +66,7 @@ def events():
     elif not User.query.filter_by(email=email).first():
         new_user = User(
             email = email,
-            password = password,
-            accounts=json.dumps({})
+            password = password
         )
         db.session.add(new_user)
         db.session.commit()
@@ -78,17 +78,18 @@ def events():
 @app.route("/events/<id>", methods=['GET', 'POST'])
 def event(id):
     event = Event.query.filter_by(_id=id).first()
+    conversations=client.conversations.conversations(event.conversation_id).messages
     if request.method == 'POST':
         text = request.form['text']
         if not text:
             flash("Please enter a message.")
             return redirect('/events/'+id)
-        client.conversations.conversations(event.conversation_id).messages.create(author=session['user'], body=text)
+        conversations.create(author=session['user'], body=text)
         return redirect('/events/'+id)
     if not session['user']:
         flash("Not authenticated.")
         return redirect(url_for('login'))
-    messages = client.conversations.conversations(event.conversation_id).messages.list(limit=20)
+    messages = conversations.list(limit=20)
     return render_template('event.html', data=event, messages=messages)
 
 @app.route("/create", methods=["GET", "POST"])
