@@ -119,6 +119,12 @@ body {
 .event_column::-webkit-scrollbar-thumb:hover {
   background: #fcbf01;
 }
+.faq{
+  left: 96%;
+  position: relative;
+  font: 700;
+  color: #9797978e;
+}
 
 @media (max-width: 1222px) {
   .host {

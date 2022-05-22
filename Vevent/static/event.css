@@ -1,0 +1,146 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  background-color: #a5a3a30b;
+
+
+}
+
+::selection {
+  color: #858585;
+  background: aquamarine;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 0;
+  background-color: #1a192e;
+  color: #ffffff;
+  justify-content: space-between;
+  height: 100px;
+  padding-right: 5%;
+}
+
+.pagename {
+  display: flex;
+  padding: 2%;
+  font-size: 30px;
+}
+.pagename > a {
+  text-decoration: none;
+  color: currentColor;
+}
+
+.page_info{
+    margin: 3%;
+    width: 45vw;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    border-radius: 15px;
+    background-color: #8585851c;
+    columns: #1a192e;
+}
+.page_info div{
+    padding: 4%;
+    font-size: larger;
+    font-weight: 550;
+}
+.chat_box{
+    display: flex;
+    height: 635px;
+    margin-top: 3%;
+    margin-left: 8%;
+    padding: 1%;
+    padding-bottom: 0%;
+    border-radius: 15px;
+    background-color: #ffffff;
+    width: 500px;
+    margin-bottom: 0%;
+    box-shadow: 1px 1px 2px rgba(115, 115, 115, 0.471), 1px 1px 1px rgba(115, 115, 115, 0.163);
+    overflow-x: hidden;
+
+}
+.text_box{
+    width: 80%;
+    font-size: 17px;
+    border-radius: 25px;
+    color: #1a192e;
+    border-color: rgba(172, 172, 172, 0.911);
+    padding-top: 2%;
+    padding-bottom: 2%;
+
+}
+
+.user{
+    padding-left: 3%;
+    margin-bottom: 2%;
+    border-radius: 25px;
+    background-color: #85858500;
+    align-items: flex-end;
+    flex-direction: column;
+
+}
+.other_users{
+
+    background-color: aquamarine;
+    padding-left: 3%;
+    padding-right: 3%;
+    margin-bottom: 2%;
+    border-radius: 25px;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+::-webkit-scrollbar-track {
+    background: #d4d4d4;
+    border-radius: 50px;
+  }
+  
+  /* Handle */
+::-webkit-scrollbar-thumb {
+    background: #fcbd012a;
+    border-radius: 50px;
+  }
+  
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #fcbf01;
+  }
+
+
+.input{
+    margin-top: 7px;
+    border-radius: 50px;
+    padding: 1%;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin:0;
+    margin-left: 2%;
+    background-color: rgba(127, 255, 212, 0.313);
+    border-color: #85858500;
+    position: relative;
+    top: 6px;
+    cursor: pointer;
+}
+.image{
+    height: 35px;
+    margin-top: 1px;
+    cursor: pointer;
+}
+.faq{
+    left: 96%;
+    position: relative;
+    font: 700;
+    color: #9797978e;
+  }

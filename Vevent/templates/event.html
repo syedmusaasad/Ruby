@@ -4,37 +4,51 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Vevent</title>
     <link
       rel="stylesheet"
       type="text/css"
       href="{{ url_for('static',filename='event.css') }}"
     />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static',filename='volunteer.png') }}"
+    />
   </head>
   <body>
-    <p class="pagename"><a href="/events">VEVENT</a></p>
-    <div style="display: flex">
-      <div>
-        <div>Name: {{data.name}}</div>
-        <div>Objective: {{data.objective}}</div>
-        <div>Email: {{data.email}}</div>
-        <div>DateTime: {{data.datetime}}</div>
-        <div>Description: {{data.description}}</div>
-        <div>Cost: {{data.cost}}</div>
-        <div>Organization: {{data.organization}}</div>
-        <div>Location: {{data.location}}</div>
-      </div>
-
-      <div style="display: flex; flex-direction: column">
-        {% for message in messages %}
-        <div><strong>{{message.author}}:</strong> {{message.body}}</div>
-        {% endfor %}
-        <form method="post" action="/events/{{data._id}}">
-          <input type="text" name="text" placeholder="Text" />
-          <input type="submit" value="send" />
-        </form>
-        <p>{{ get_flashed_messages()[0] }}</p>
+    <div class="header">
+      <p class="pagename"><a href="/events">VEVENT</a></p>
+      <div class="username">
+         {{session['user'].split("@")[0]}}
       </div>
     </div>
+
+    <div style="display: flex">
+      <div class="page_info">
+        <div>Organization name: {{data.name}}</div>
+        <div>Objective: {{data.objective}}</div>
+        <div>Host email: {{data.email}}</div>
+        <div>Date and time: {{data.datetime.strftime("%m/%d/%Y at %I:%M %p")}}</div>
+        <div>Description of event: {{data.description}}</div>
+        <div>Possible cost: {{data.cost}}</div>
+        <div>Sponsor: {{data.organization}}</div>
+        <div>Location of event: {{data.location}}</div>
+      </div>
+
+      <div class = "chat_box"style="display: flex; flex-direction: column">
+        {% for message in messages %}
+        {% if message.author == session["user"]%}
+        <div class="user"> <strong>{{message.author.split("@")[0]}}:</strong><br> {{message.body}}</div>
+        {% else %} <div class="other_users"><strong>{{message.author.split("@")[0]}}:</strong><br> {{message.body}}</div>
+        {% endif %}
+        {% endfor %}
+        <form method="post" action="/events/{{data._id}}">
+          <input class = "text_box" type="text" name="text" placeholder="Message" />
+            <button class="input"><img class="image" src="{{ url_for('static',filename='send.png') }}"  type="submit"></button>
+
+        </form>
+        <p style="color: red;">{{ get_flashed_messages()[0] }}</p>
+      </div>
+    </div>
+    <a class="faq" href="/faq">FAQ</a>
+
   </body>
 </html>

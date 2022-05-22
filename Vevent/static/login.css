@@ -196,13 +196,13 @@ background-color: #fcbd013c;
         box-sizing: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
     
+
     .popup{
         margin-top: 0;
         margin-bottom: 20px;
         color: red;
         font: 700;
     }
-    
 }
 
 @media(min-width:1777px){
@@ -223,3 +223,11 @@ background-color: #fcbd013c;
     margin: auto;
     }
 }
+.faq{
+    top: 175px;
+    left: 97%;
+    position: relative;
+    font: 700;
+    color: #9797978e;
+    text-decoration: none;
+  }

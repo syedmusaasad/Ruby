@@ -76,8 +76,13 @@
         name="description"
         placeholder="Description"
       ></textarea>
+    <div class="popup">
+      {{ get_flashed_messages()[0] }}
+      <br>
+    </div>
       <input class="submit_button" type="submit" value="submit" />
     </form>
-    {{ get_flashed_messages()[0] }}
+    <img class = "create_image"src="{{ url_for('static',filename='network.png') }}" alt="">
+    <a class="faq" href="/faq">FAQ</a>
   </body>
 </html>
