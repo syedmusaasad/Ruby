@@ -1,5 +1,4 @@
-import geocoder
-import math
+import geocoder, math
 from flask import redirect, render_template, request, session, url_for, flash
 from flask_googlemaps import Map
 from datetime import datetime as dt
