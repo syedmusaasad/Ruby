@@ -9,9 +9,11 @@
       rel="stylesheet"
       type="text/css"
       href="{{ url_for('static',filename='login.css') }}"
-
     />
-    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static',filename='volunteer.png') }}"
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{{ url_for('static',filename='volunteer.png') }}"
     />
   </head>
   <body>
@@ -34,7 +36,6 @@
           <p class="login_text">Welcome!</p>
           <p class="subheading">Let's make a difference.</p>
 
-          
           <form class="inside_login" method="post" action="/events">
             <input
               class="items_inside"
@@ -48,15 +49,11 @@
               name="password"
               placeholder="Password"
             />
-            <div class="popup">
-            {{ get_flashed_messages()[0] }}
-           </div>
+            <div class="popup">{{ get_flashed_messages()[0] }}</div>
             <input class="last_item" type="submit" value="Login" />
-            
           </form>
         </form>
       </div>
     </div>
-
   </body>
 </html>

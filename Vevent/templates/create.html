@@ -20,7 +20,9 @@
   <body>
     <div class="header">
       <p class="pagename"><a href="/events">VEVENT</a></p>
-      <div class="username">{{session['user'].split("@")[0]}}</div>
+      <div class="username"><a href="/" style="color: white; text-decoration: none"
+        >{{session['user'].split("@")[0]}}</a
+      ></div>
     </div>
 
     <form class="form_main" method="post" action="/create">
