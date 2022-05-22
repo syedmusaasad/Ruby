@@ -80,6 +80,9 @@ def event(id):
     event = Event.query.filter_by(_id=id).first()
     if request.method == 'POST':
         text = request.form['text']
+        if not text:
+            flash("Please enter a message.")
+            return redirect('/events/'+id)
         client.conversations.conversations(event.conversation_id).messages.create(author=session['user'], body=text)
         return redirect('/events/'+id)
     if not session['user']:
