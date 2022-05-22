@@ -4,25 +4,41 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VEVENT</title>
+    <title>Vevent</title>
     <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static',filename='create.css') }}"
-    />
+      rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='create.css') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static',filename='volunteer.png') }}" />
   </head>
+  
+
   <body>
+  
+   <div class="header">
     <p class="pagename"><a href="/events">VEVENT</a></p>
-    <form method="post" action="/create">
-      <input type="text" name="name" placeholder="Name" />
-      <input type="text" name="location" placeholder="Location" />
-      <input type="datetime-local" name="datetime" placeholder="DateTime" />
-      <input type="text" name="organization" placeholder="Organization" />
-      <input type="text" name="cost" placeholder="Cost" />
-      <input type="text" name="description" placeholder="Description" />
-      <input type="text" name="objective" placeholder="Objective" />
-      <input type="submit" value="submit" />
+    <div class="username">
+       {{session['user'].split("@")[0]}}
+    </div>
+  </div>
+
+
+    <form class="form_main"method="post" action="/create">
+      <p>Choose the title of the event you'd like to create.</p>
+      <input class="top_six_box" type="text" name="name" placeholder="Title" />
+      <p>Include a specific address of where you'd like to make a difference.</p>
+      <input class="top_six_box" type="text" name="location" placeholder="Location" />
+      <p>What date would you like to make this event?</p>
+      <input class="top_six_box" type="datetime-local" name="datetime" placeholder="DateTime" />
+      <p>Is there an organization you'd like to Include? Sponsored events can attract more people.</p>
+      <input class="top_six_box" type="text" name="organization" placeholder="Organization" />
+      <p>Would the volunteers typically have to pay for anything? (clothing for the homeless, trash bags, money for water, etc.)</p>
+      <input class="top_six_box" type="text" name="cost" placeholder="Cost" />
+      <p>Describe the event in a brief sentence. (this will be the subheading.)</p>
+      <input class="top_six_box" type="text" name="objective" placeholder="Objective" />
+      <p>Please describe why it would benefit the local community if the goal is accomplished, what will happen during the event, and what is typically needed from everyone.</p>
+      <input class="description_button"type="text" name="description" placeholder="Description" />
+      
     </form>
+     <input class="submit_button"type="submit" value="submit" />
     {{ get_flashed_messages()[0] }}
   </body>
 </html>

@@ -4,6 +4,7 @@ body {
     margin: 0;
     font-family: "Montserrat", sans-serif;
     background-color: #ffffff;
+    overflow: hidden;
 }
 
 ::selection {
@@ -32,15 +33,21 @@ body {
     color: currentColor;
 }
 .host{
+    position: relative;
     background-color: #1a192e;
     padding: 14px;
     border-radius: 50px;
-    width: 40%;
+    width: 45vw;
     min-width: 300px;
     margin-left: 45px;
-    margin-top: 15px;
     color: #ffffff;
     font-size: 20px;
+    bottom: 7px;
+}
+
+.host_link{
+    position: relative;
+    bottom: 65px;
 }
 .host:hover{
     transition: .4s;
@@ -50,13 +57,75 @@ body {
     cursor: pointer;
 }
 .map{
-    height: 500px !important;
+
+height: 640px !important;
+margin: 1% !important;
+margin-top: 0 !important;
+width: 50vw !important;
+border-radius: 10px !important;
+margin-right: 10px !important;
 
 }
-
 .event_name{
-    display: inline-block;
-    align-items: right;
-    background-color: #1a192e;
-    justify-content: right;
+    width: 45vw;
+    height: 100px;
+    flex-direction: column;
+    padding-left: 5px;
+    padding-top: 5px;
+    text-decoration: none;
+    color: #1a192e;
+    border-bottom: 1px solid rgba(118, 118, 118, 0.335);
+    font-weight: bold;  
 }
+.event_name:hover{
+    transition: .4s;
+    background-color: #fcbd012a;
+}
+.event_column{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-bottom: 1%;
+    max-height: 690px;
+    overflow-x: hidden;
+
+
+}
+.content{
+    display: flex;
+    flex: 640px 700px;
+    align-items: row;
+    margin-top: 1%;
+    } 
+.event_description{
+    font-weight: lighter;
+}
+
+/* width */
+.event_column::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  .event_column::-webkit-scrollbar-track {
+    background: #d4d4d4;
+    border-radius: 50px;
+  }
+  
+  /* Handle */
+  .event_column::-webkit-scrollbar-thumb {
+    background: #fcbd012a;
+    border-radius: 50px;
+
+  }
+  
+  /* Handle on hover */
+  .event_column::-webkit-scrollbar-thumb:hover {
+    background: #fcbf01;
+  }
+
+  @media(max-width:1222px){
+      .host{
+          bottom: 7px;
+      }
+  }

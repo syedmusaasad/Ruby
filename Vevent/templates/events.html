@@ -10,11 +10,7 @@
 />
   <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='events.css') }}" />
   {{ map.js }}
-<style>
-  .map-class{
-    height: 600px;
-  }
-</style>
+
 </head>
 
 <body>
@@ -25,13 +21,17 @@
     </div>
   </div>
 
-  {% for event in events %}
-  <a class="event_name" href="events/{{ event.id }}">{{ event.name }}</a>
-  {% endfor %}
-   <div class="map" >
+ <div class="content"> 
     {{ map.html }}
-   </div>
-<a href="/create"><button class="host">Host an event!</button></a>
-  </body>
+   <div class="event_column">
+          {% for event in events %}
+          <a class="event_name" href="events/{{ event.id }}">{{ event.name }}
+            <p class="event_description">⋅ {{ event.objective }}<br>⋅ {{ event.description }}</p></a>
+            <hr>
+          {% endfor %}
+    </div>
+</div>
+<a class="host_link"href="/create"><button class="host">Host an event!</button></a>
 
+</body>
 </html>

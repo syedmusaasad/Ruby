@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+
+body {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    background-color: #ffffff;
+    
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 11px;
+  }
+  
+  /* Track */
+::-webkit-scrollbar-track {
+    background: #d4d4d4;
+    border-radius: 50px;
+  }
+  
+  /* Handle */
+::-webkit-scrollbar-thumb {
+    background: #fcbd0152;
+    border-radius: 50px;
+
+  }
+  
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #858585;
+  }
+
+::selection {
+    color: #858585;
+    background: aquamarine;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 0;
+    background-color: #1a192e;
+    color: #ffffff;
+    justify-content: space-between;
+    height: 100px;
+    padding-right: 5%;
+}
+
+.pagename {
+    display: flex;
+    padding: 2%;
+    font-size: 30px;  
+}
+.pagename > a{
+    text-decoration: none;
+    color: currentColor;
+}
+.form_main{
+    padding: 5%;
+    padding-top: 2%;
+    width: 40vw;
+    font-size: 14px;
+}
+.top_six_box{
+width: 300px;
+font-size: 15px;
+padding: 2%;
+border-radius: 50px;
+border-color: none;
+background-color: #85858514;
+border-style: hidden;
+box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.description_button{
+    min-height: 230px;
+    width: 530px;
+    font-size: 15px;
+    padding: 2%;
+    border-radius: 25px;
+    border-color: none;
+    background-color: #85858514;
+    border-style: hidden;
+    text-align-last: justify;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    align-items: flex-start;
+}
+.description_button textarea {
+    resize: none;
+}
+.submit_button{
+    font-size: 25px;
+    width: 30vw;
+    border-radius: 50px;
+    padding: 10px;
+    border-color: rgba(255, 255, 255, 0);
+    text-transform: uppercase;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    cursor: pointer;
+    background-color: #fcbf01;
+   /* background-image: linear-gradient(to right,  #1a192e 0%,  aquamarine 100%)*/
+    color: #1a192e;
+    font-weight: 40;
+
+}
+
+.submit_button:hover { 
+    background-color: aquamarine;
+    color: #858585;
+}
