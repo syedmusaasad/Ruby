@@ -1,4 +1,5 @@
 /env
 *.pyc
 
-/Vevent/__pycache__
+Vevent/__pycache__
+Vevent/db.sqlite
