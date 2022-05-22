@@ -31,7 +31,7 @@ pip install -r requirements.txt
 To set up the application, run the following three commands:
 
 ```
-set FLASK_APP=AudioAssembly
+set FLASK_APP=Vevent
 set FLASK_ENV=development
 set GOOGLEMAPS_KEY=<YOUR GOOGLEMAPS_KEY>
 set TWILIO_ACCOUNT_SID=<YOUR TWILIO_ACCOUNT_SID>
