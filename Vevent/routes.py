@@ -35,6 +35,8 @@ def events():
                 {
                     'name': event.name,
                     'id': event._id,
+                    'description': event.description,
+                    'cost': event.cost,
                     'dist': math.sqrt( ((current_location[0]-coords['lat'])**2)+((current_location[1]-coords['lng'])**2) )
                 }
             )
@@ -50,7 +52,7 @@ def events():
         return render_template('events.html',
             events=events,
             map=Map(identifier="Event_Map", lat=current_location[0], lng=current_location[1], markers=markers)
-                              )
+        )
     email = request.form['email']
     password = request.form['password']
     if not email or not password:
@@ -73,7 +75,7 @@ def events():
     flash("Incorrect information.")
     return redirect(url_for('login'))
 
-@app.route("/events/<id>")
+@app.route("/events/<id>", methods=['GET', 'POST'])
 def event(id):
     if not session['user']:
         flash("Not authenticated.")
@@ -90,8 +92,8 @@ def event(id):
             {User.accounts: json.dumps(user_accounts)}
         )
         db.session.commit()
-    conversation = client.conversations.conversations(event.conversation_id).fetch()
-    return render_template('event.html', data=event, conversation=conversation, participant=participant)
+    messages = client.conversations.conversations(event.conversation_id).messages.list(limit=20)
+    return render_template('event.html', data=event, messages=messages, participant=participant)
 
 @app.route("/create", methods=["GET", "POST"])
 def create():
